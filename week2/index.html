@@ -2,6 +2,23 @@
     <title>TODO Application</title>
 </head>
 <script>
+
+    function todoCallBack(data){
+        console.log(data)
+        var parentElement = document.getElementById('showTodo')
+        parentElement.innerHTML = JSON.stringify(data)
+    }
+    function callBack2(res){
+        res.json().then(todoCallBack)
+    }
+    function getData(){
+        fetch('http://localhost:3000/todo',{
+            method: "GET"
+        }).then(callBack2)
+    }
+    getData()
+
+
     function parsedResponse(data){
         console.log(data)
     }
@@ -9,11 +26,13 @@
         res.json().then(parsedResponse)
     }
     function onPress(){
+        var title = document.getElementById('title').value
+        var description = document.getElementById('description').value
         fetch('http://localhost:3000/todo',{
             method: "POST",
             body: JSON.stringify({
-                title : 'Gym',
-                description : 'Go to Gym at 7'
+                title : title,
+                description : description
             }),
             headers: {
                 "Content-Type":"application/json"
@@ -26,8 +45,12 @@
     <input type="text" name="" id="title">
     <br></br>
     Todo Description
-    <input type="text" name="" id="Description">
+    <input type="text" name="" id="description">
     <br></br>
     <button onclick="onPress()">Submit</button>
+    <div id="showTodo">
+        Following are your Todos:
+
+    </div>
 </body>
 </html>

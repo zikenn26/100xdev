@@ -7,9 +7,8 @@ const app = express()
 const cors = require('cors')
 app.use(bodyParser.json())
 app.use(cors())
-// module.exports = app;
-let index=1
 
+let index=1
 
 app.get('/todo',(req,res)=>{
     fs.readFile('todo.json',"utf-8",(err,data)=>{
